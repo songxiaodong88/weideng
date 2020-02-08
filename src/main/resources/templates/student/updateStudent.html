@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>修改学生信息</title>
+    <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+    <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+
+    <link rel="shortcut icon" href="favicon.ico"> <link href="/static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/static/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="/static/css/animate.css" rel="stylesheet">
+    <link href="/static/css/style.css?v=4.1.0" rel="stylesheet">
+
+    <!--radio单选框-->
+    <link href="/static/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5  style="font-family: '微软雅黑';">修改学生信息</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                           <!-- <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="form_basic.html#">选项1</a>
+                                </li>
+                                <li><a href="form_basic.html#">选项2</a>
+                                </li>
+                            </ul>-->
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <form class="form-horizontal m-t" id="signupForm" action="/student/doUpdStudent" method="post">
+                            <!--<div class="form-group">
+                                <label class="col-sm-3 control-label">姓氏：</label>
+                                <div class="col-sm-8">
+                                    <input id="firstname" name="firstname" class="form-control" type="text">
+                                    <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 这里写点提示的内容</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">名字：</label>
+                                <div class="col-sm-8">
+                                    <input id="lastname" name="lastname" class="form-control" type="text" aria-required="true" aria-invalid="false" class="valid">
+                                </div>
+                            </div>-->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label"><span style="color: red">*</span>学生姓名:</label>
+                                <div class="col-sm-8">
+                                    <input name="sname" type="text" id="name" class="form-control" th:value="${stu.sname}" readonly>
+                                    <input name="sid" type="hidden"  class="form-control" th:value="${stu.sid}">
+                                </div>
+                            </div>
+                            <!--<p align="center" style="color: red" id="prePhones"></p>-->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label"><span style="color: red">*</span>性别:</label>
+                                <div class="col-sm-6">
+                                    <div class="radio radio-info radio-inline">
+                                        <input name="sex" type="radio" id="inlineRadio1" required value="1" th:field="${stu.sex}"><label for="inlineRadio1">男</label>
+                                    </div>
+                                    <div class="radio radio-info radio-inline">
+                                        <input name="sex" type="radio" id="inlineRadio2" required value="2" th:field="${stu.sex}"><label for="inlineRadio2">女</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" id="data_1">
+                                <label class="col-sm-3 control-label">出生日期:</label>
+                                <div class="col-sm-8">
+                                    <!--<span class="input-group-addon "><i class="fa fa-calendar"></i></span>-->
+                                    <input type="text" class="form-control layer-date" style="height: 33px;" autocomplete="off" id="test1"  name="birthday1" th:value="${#dates.format(stu.birthday,'yyyy-MM-dd')}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">民族:</label>
+                                <div class="col-sm-8">
+                                    <input name="nation" type="text" class="form-control" th:value="${stu.nation}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label"><span style="color: red">*</span>联系方式:</label>
+                                <div class="col-sm-8">
+                                    <input name="phone" type="text" required class="form-control" id="phone" th:value="${stu.phone}">
+                                </div>
+                            </div>
+                            <!--<p align="center" style="color: red" id="preEmails"></p>-->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">备注:</label>
+                                <div class="col-sm-8">
+                                    <input name="remark"  type="text" class="form-control" th:value="${stu.remark}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-8 col-sm-offset-3">
+                                    <button class="btn btn-primary" type="submit" id="tiJiao">提交</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <button class="btn btn-primary" type="button" onclick="window.history.go(-1)">返回</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- 全局js -->
+    <script src="/static/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/static/js/bootstrap.min.js?v=3.3.6"></script>
+
+    <!-- 自定义js -->
+    <script src="/static/js/content.js?v=1.0.0"></script>
+
+    <!-- jQuery Validation plugin javascript-->
+    <script src="/static/js/plugins/validate/jquery.validate.min.js"></script>
+    <script src="/static/js/plugins/validate/messages_zh.min.js"></script>
+
+    <script src="/static/js/demo/form-validate-demo.js"></script>
+
+    <!--日期控件-->
+    <script src="/static/laydate/laydate.js"></script>
+
+    <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
+    <!--统计代码，可删除-->
+
+    <script>
+        !function(){
+            laydate.skin('molv');//切换皮肤，请查看skins下面皮肤库
+            laydate({elem: '#demo'});//绑定元素
+        }();
+
+        //自定义日期格式
+        laydate({
+            elem: '#test1',
+            format: 'YYYY-MM-DD',
+            festival: true, //显示节日
+            choose: function(datas){ //选择日期完毕的回调
+                // alert('得到：'+datas);
+            }
+        });
+    </script>
+
+
+
+
+</body>
+
+</html>

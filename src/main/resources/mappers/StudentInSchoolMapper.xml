@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wisdom.dao.StudentInSchoolDao">
+
+    <!--查询所有在校学员信息-->
+    <select id="queryAllStudentInfo" resultType="com.wisdom.dto.StudentInSchoolDTO">
+      SELECT stu.`sid`,stu.`sname`,stu.`sex`,stu.`birthday`,stu.`nation`,nc.`phone`,cd.tuition_form,
+        (IF(c2.`cid` IN (1,2),IFNULL(nc.`total`,0),IFNULL(cd.`total`,0))) total,
+        IF(c2.`cid` IN (1,2),nc.`pay_time`,cd.`pay_time`) payTime,
+        IF(c2.`cid` IN (1,2),IFNULL(nc.`class_hour`,0),IFNULL(cd.`class_hour`,0)) classHour ,
+        (c2.`cname`) cname,IFNULL(IF(c2.`cid` IN (1,2),IFNULL(nc.`period_of_validity`,nc.`class_hour`),IFNULL(cd.`period_of_validity`,cd.`class_hour`)),0) periodOfValidity,
+        IF(c2.`cid` IN (1,2),IFNULL(nc.`price`,0),IFNULL(cd.`price`,0)) price,
+	    IF(c2.`cid` IN (1,2),IFNULL(nc.`January`,0),IFNULL(cd.`January`,0)) january,
+        IF(c2.`cid` IN (1,2),IFNULL(nc.`February`,0),IFNULL(cd.`February`,0)) february,
+        IF(c2.`cid` IN (1,2),IFNULL(nc.`March`,0),IFNULL(cd.`March`,0)) march,
+        IF(c2.`cid` IN (1,2),IFNULL(nc.`April`,0),IFNULL(cd.`April`,0)) april,
+        IF(c2.`cid` IN (1,2),IFNULL(nc.`May`,0),IFNULL(cd.`May`,0)) may,
+        IF(c2.`cid` IN (1,2),IFNULL(nc.`June`,0),IFNULL(cd.`June`,0)) june,
+        IF(c2.`cid` IN (1,2),IFNULL(nc.`July`,0),IFNULL(cd.`July`,0)) july,
+        IF(c2.`cid` IN (1,2),IFNULL(nc.`August`,0),IFNULL(cd.`August`,0)) august,
+        IF(c2.`cid` IN (1,2),IFNULL(nc.`September`,0),IFNULL(cd.`September`,0)) september,
+        IF(c2.`cid` IN (1,2),IFNULL(nc.`October`,0),IFNULL(cd.`October`,0)) october,
+        IF(c2.`cid` IN (1,2),IFNULL(nc.`November`,0),IFNULL(cd.`November`,0)) november,
+        IF(c2.`cid` IN (1,2),IFNULL(nc.`December`,0),IFNULL(cd.`December`,0)) december,
+        IF(c2.`cid` IN (1,2),IFNULL(nc.`book_price`,0),IFNULL(cd.`book_price`,0)) bookPrice,
+        IF(c2.`cid` IN (1,2),IFNULL(nc.`small_dining_table`,0),IFNULL(cd.`small_dining_table`,0)) smallDiningTable,
+        IF(c2.`cid` IN (1,2),IFNULL(nc.`monitoring`,0),IFNULL(cd.`monitoring`,0)) monitoring,
+        IF(c2.`cid` IN (1,2),IFNULL(nc.`pick_up`,0),IFNULL(cd.`pick_up`,0)) pickUp,
+        IF(c2.`cid` IN (1,2),nc.`remark`,cd.`remark`) remark,(sum_cd.sum_cd_total+sum_nc.sum_nc_total) sumTotal
+        FROM student stu
+        LEFT JOIN cost_details cd ON cd.`stu_id` =stu.`sid`
+        LEFT JOIN nursery_class nc ON  stu.`sid`=nc.`stu_id`
+        LEFT JOIN course c2 ON c2.`cid`=cd.`course_id` OR c2.`cid`=nc.`course_id`,
+        (SELECT SUM(`total`)sum_cd_total FROM `cost_details` ) sum_cd,
+        (SELECT SUM(`total`)sum_nc_total FROM nursery_class ) sum_nc
+        WHERE stu.status=1
+        GROUP BY stu.`sid`,c2.`cid` ORDER BY stu.sid
+
+    </select>
+</mapper>

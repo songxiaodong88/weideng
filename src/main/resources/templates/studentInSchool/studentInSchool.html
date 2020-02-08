@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>在校学员总表</title>
+    <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+    <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+
+    <link rel="shortcut icon" href="favicon.ico"> <link href="/static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/static/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+
+    <!-- Data Tables -->
+    <link href="/static/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+
+    <link href="../../static/css/animate.css" rel="stylesheet">
+    <link href="../../static/css/style.css?v=4.1.0" rel="stylesheet">
+
+    <style>
+        .exception{
+            color: red;
+        }
+        .normal{
+            color: black;
+        }
+    </style>
+
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>基本 <small>分类，查找</small></h5>
+                        <!--<div align="center"><span style="color: red">&lt;!&ndash; <#if deletemsg??><h3>${deletemsg}</h3></#if> &ndash;&gt;</span></div>-->
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                           <!-- <a class="dropdown-toggle" data-toggle="dropdown" href="familylist.html#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="familylist.html#">选项1</a>
+                                </li>
+                                <li><a href="familylist.html#">选项2</a>
+                                </li>
+                            </ul>-->
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="">
+                            <!--<a href="/toaddfamily"><button type="button" class="btn btn-w-m btn-primary">添加学生信息</button></a>-->
+                            <p align="right" th:text="'在校学员学费总计:&nbsp;￥'+${#numbers.formatDecimal(sum_stu,1,'COMMA',2,'POINT')}+'元'"></p>
+                            <p align="right" id="shengYu"  style="color: #ce8735"></p>
+                        </div>
+
+                        <table class="table table-striped table-bordered table-hover dataTables-example">
+                            <thead>
+                            <tr align="center">
+                                <th>序号</th>
+                                <th>姓名</th>
+                                <!--<th>性别</th>
+                                <th>生日</th>
+                                <th>民族</th>-->
+                                <th>联系方式</th>
+                                <th>学费</th>
+                                <th>缴费日期</th>
+                                <th>总课时</th>
+                                <th>已报课程</th>
+                                <th>学费形式</th>
+                                <th>单科课时次数</th>
+                                <th>单次单价</th>
+                                <th>已用课时</th>
+                                <th>已用学费</th>
+                                <th>剩余课时</th>
+                                <th>剩余学费</th>
+                                <th>书本费</th>
+                                <th>小饭桌</th>
+                                <th>监控</th>
+                                <th>接送费</th>
+                                <th>备注</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr align="center" th:each="stu:${stuAll}" th:classappend="${(stu.classHour - (stu.september + stu.october + stu.november + stu.december + stu.january + stu.february + stu.march + stu.april + stu.may + stu.june + stu.july + stu.august)) < 5 ? 'exception' : 'normal'}">
+                                <td th:text="${stuStat.index+1}"></td>
+                                <!--<td th:text="${stu.sid}"></td>-->
+                                <td th:text="${stu.sname}"></td>
+                               <!-- <td th:text="${stu.sex eq '1'?'男':'女'}"></td>
+                                <td th:text="${#dates.format(stu.birthday,'yyyy-MM-dd')}"></td>
+                                <td th:text="${stu.nation}"></td>-->
+                                <td th:text="${stu.phone}"></td>
+                                <td th:text="${#numbers.formatDecimal(stu.total,1,'COMMA',2,'POINT')}"></td>
+                                <td th:text="${stu.payTime}"></td>
+                                <td th:text="${stu.classHour}"></td>
+                                <td th:text="${stu.cname}"></td>
+                                <td th:text="${stu.tuitionForm}"></td>
+                                <td th:text="${stu.periodOfValidity}"></td>
+                                <td th:text="${stu.price}"></td>
+                                <td th:text="${stu.september + stu.october + stu.november + stu.december + stu.january + stu.february + stu.march + stu.april + stu.may + stu.june + stu.july + stu.august}"></td>
+                                <td th:text="${#numbers.formatDecimal(((stu.september + stu.october + stu.november + stu.december + stu.january + stu.february + stu.march + stu.april + stu.may + stu.june + stu.july + stu.august) * stu.price),1,'COMMA',2,'POINT')}"></td>
+
+                                <td th:text="${stu.classHour - (stu.september + stu.october + stu.november + stu.december + stu.january + stu.february + stu.march + stu.april + stu.may + stu.june + stu.july + stu.august)}"></td>
+                                <td th:text="${#numbers.formatDecimal((((stu.classHour) - (stu.september + stu.october + stu.november + stu.december + stu.january + stu.february + stu.march + stu.april + stu.may + stu.june + stu.july + stu.august)) * stu.price),1,'COMMA',2,'POINT')}"></td>
+                                <td th:text="${stu.bookPrice}"></td>
+                                <td th:text="${stu.smallDiningTable}"></td>
+                                <td th:text="${stu.monitoring}"></td>
+                                <td th:text="${stu.pickUp}"></td>
+                                <td th:text="${stu.remark}" width="5%"></td>
+                            </tr>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <th>序号</th>
+                                <th>姓名</th>
+                               <!-- <th>性别</th>
+                                <th>生日</th>
+                                <th>民族</th>-->
+                                <th>联系方式</th>
+                                <th>学费</th>
+                                <th>缴费日期</th>
+                                <th>总课时</th>
+                                <th>已报课程</th>
+                                <th>学费形式</th>
+                                <th>单科课时次数</th>
+                                <th>单次单价</th>
+                                <th>已用课时</th>
+                                <th>已用学费</th>
+                                <th>剩余课时</th>
+                                <th>剩余学费</th>
+                                <th>书本费</th>
+                                <th>小饭桌</th>
+                                <th>监控</th>
+                                <th>接送费</th>
+                                <th>备注</th>
+                            </tr>
+                            </tfoot>
+                            <!-- <tr>
+                                 <td colspan="6" align="center">合计：</td>
+                                 <td colspan="19" th:text="${sum_stu}+'元'"></td>
+                             </tr>-->
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 全局js -->
+    <script src="/static/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/static/js/bootstrap.min.js?v=3.3.6"></script>
+
+
+
+    <script src="/static/js/plugins/jeditable/jquery.jeditable.js"></script>
+
+    <!-- Data Tables -->
+    <script src="/static/js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="/static/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+
+    <!-- 自定义js -->
+    <script src="/static/js/content.js?v=1.0.0"></script>
+
+
+    <!-- Page-Level Scripts -->
+    <script>
+        $(document).ready(function () {
+            $('.dataTables-example').dataTable();
+
+            /* Init DataTables */
+            var oTable = $('#editable').dataTable();
+
+            /* Apply the jEditable handlers to the table */
+            oTable.$('td').editable('../example_ajax.php', {
+                "callback": function (sValue, y) {
+                    var aPos = oTable.fnGetPosition(this);
+                    oTable.fnUpdate(sValue, aPos[0], aPos[1]);
+                },
+                "submitdata": function (value, settings) {
+                    return {
+                        "row_id": this.parentNode.getAttribute('id'),
+                        "column": oTable.fnGetPosition(this)[2]
+                    };
+                },
+
+                "width": "90%",
+                "height": "100%"
+            });
+
+
+        });
+
+        function fnClickAddRow() {
+            $('#editable').dataTable().fnAddData([
+                "Custom row",
+                "New row",
+                "New row",
+                "New row",
+                "New row"]);
+
+        }
+    </script>
+
+    <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
+    <!--统计代码，可删除-->
+
+    <!--计算剩余课时学费-->
+    <script th:inline="javascript">
+        var list1 = [[${stuAll}]];
+        var sum=0;
+        $.each(list1,function(i,nc){
+            // alert(list.september);
+            sum = sum + parseFloat((((nc.classHour) - (nc.august + nc.september + nc.october + nc.november + nc.december + nc.january + nc.february + nc.march + nc.april + nc.may + nc.june + nc.july)) * nc.price));
+        });
+        // alert(fmoney(sum,2));
+
+        $("#shengYu").html("在校学员剩余课时学费总计:&nbsp;￥"+ fmoney(sum,2) + "元");
+
+        function fmoney(s, n) {
+            n = n > 0 && n <= 20 ? n : 2;
+            s = parseFloat((s + "").replace(/[^\d\.-]/g, "")).toFixed(n) + "";
+            var l = s.split(".")[0].split("").reverse(), r = s.split(".")[1];
+            t = "";
+            for (i = 0; i < l.length; i++) {
+                t += l[i] + ((i + 1) % 3 == 0 && (i + 1) != l.length ? "," : "");
+            }
+            return t.split("").reverse().join("") + "." + r;
+        }
+
+    </script>
+
+</body>
+
+</html>

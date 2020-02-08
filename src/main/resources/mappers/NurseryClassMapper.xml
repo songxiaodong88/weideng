@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wisdom.dao.NurseryClassDao">
+
+    <!--查询所有幼小班信息-->
+    <select id="queryAllNurseryClass" resultType="com.wisdom.dto.NurseryClassDTO">
+        SELECT nc.`nc_id`,c1.`cname`,c1.`schooltime`,stu.`sname`,nc.`total`,
+        nc.`class_hour`,nc.`period_of_validity`,nc.`pay_time`,nc.`phone`,nc.`price`,
+        nc.`August`,nc.`September`,nc.`October`,nc.`November`,nc.`December`,nc.January,nc.February,
+        nc.March,nc.April,nc.May,nc.June,nc.July,nc.`interest_classes`,
+        nc.`remark`,nc.`students_safety_insurance`,nc.`record`,nc.`memo`,sum_tj.*
+        FROM student stu
+        LEFT JOIN `nursery_class` nc ON stu.`sid`=nc.`stu_id`
+        LEFT JOIN classes c1 ON c1.`class_id`=nc.`class_id`
+        LEFT JOIN course c2 ON c2.`cid`=nc.`course_id`,
+        (SELECT SUM(`total`)sum_total,SUM(`August`)sum_ba,SUM(`September`) sum_jiu,SUM(`October`)sum_shi,SUM(`November`)sum_shy,
+        SUM(`December`)sum_she,SUM(`January`)sum_yi FROM nursery_class WHERE `course_id`=2) sum_tj
+        WHERE c2.`cid`=2 and stu.status=1 and nc.status=1
+    </select>
+
+    <!--根据学生ID查询所有关联的课程信息-->
+    <select id="queryNurseyClassByStuId" resultType="com.wisdom.entity.NurseryClassEntity">
+        select * from nursery_class nc where nc.stu_id=#{stuId} and nc.status=1
+    </select>
+
+    <!--根据ID查询详细信息-->
+    <select id="detailNurseryClassByNcId" resultType="com.wisdom.dto.NurseryClassDTO">
+        SELECT nc.`nc_id`,nc.`stu_id`,nc.`class_id`,nc.`course_id`,c1.`cname`,c1.`schooltime`,stu.`sname`,nc.`total`,
+        nc.`payment_method`,nc.`class_hour`,nc.`period_of_validity`,nc.`pay_time`,nc.`phone`,nc.`price`,
+        nc.`August`,nc.`September`,nc.`October`,nc.`November`,nc.`December`,nc.January,nc.February,
+        nc.March,nc.April,nc.May,nc.June,nc.July,nc.`interest_classes`,nc.`book_price`,nc.`small_dining_table`,
+        nc.`pick_up`,nc.`monitoring`,
+        nc.`students_safety_insurance`,nc.`record`,nc.`protocol`,nc.`remark`,nc.`memo`
+        FROM student stu
+        LEFT JOIN `nursery_class` nc ON stu.`sid`=nc.`stu_id`
+        LEFT JOIN classes c1 ON c1.`class_id`=nc.`class_id`
+        LEFT JOIN course c2 ON c2.`cid`=nc.`course_id`
+        WHERE c2.`cid`=#{courseId} AND stu.status=1 AND nc.status=1 AND nc.`nc_id`=#{ncId}
+    </select>
+
+    <!--删除课程信息，将状态修改为删除-->
+    <update id="updNurseryClassStatusByNcId">
+        update nursery_class set status=0 where nc_id=#{ncId}
+    </update>
+
+    <!--修改幼儿班/幼小衔接班信息-->
+    <update id="updateNurseryClass">
+        update nursery_class
+        <trim prefix="set" suffixOverrides="," suffix="where nc_id=#{ncId}">
+            <if test="stuId != null">stu_id=#{stuId},</if>
+            <if test="classId != null">class_id=#{classId},</if>
+            <if test="courseId != null">course_id=#{courseId},</if>
+            <if test="total != null and total !=''">total=#{total},</if>
+            <if test="paymentMethod != null and paymentMethod !=''">payment_method=#{paymentMethod},</if>
+            <if test="classHour != null and classHour !=''">class_hour=#{classHour},</if>
+            <if test="periodOfValidity != null and periodOfValidity !=''">period_of_validity=#{periodOfValidity},</if>
+            <if test="payTime != null and payTime !=''">pay_time=#{payTime},</if>
+            <if test="phone != null and phone !=''">phone=#{phone},</if>
+            <if test="price != null and price !=''">price=#{price},</if>
+            <if test="august != null and price > 0">August=#{price},</if>
+            <if test="september != null and september > 0">September=#{september},</if>
+            <if test="october != null and october > 0">October=#{october},</if>
+            <if test="november != null and november > 0">November=#{november},</if>
+            <if test="december != null and december > 0">December=#{december},</if>
+            <if test="january != null and january > 0">January=#{january},</if>
+            <if test="february != null and january > 0">February=#{january},</if>
+            <if test="march != null and march > 0">March=#{march},</if>
+            <if test="april != null and april > 0">April=#{april},</if>
+            <if test="may != null and may > 0">May=#{may},</if>
+            <if test="june != null and june > 0">June=#{june},</if>
+            <if test="july != null and july > 0">July=#{july},</if>
+            <if test="interestClasses != null and interestClasses != ''">interest_classes=#{interestClasses},</if>
+            <if test="bookPrice != null and bookPrice > 0">book_price=#{bookPrice},</if>
+            <if test="smallDiningTable != null and smallDiningTable > 0">small_dining_table=#{smallDiningTable},</if>
+            <if test="monitoring != null and monitoring > 0">monitoring=#{monitoring},</if>
+            <if test="pickUp != null and pickUp > 0">pick_up=#{pickUp},</if>
+            <if test="remark != null and remark != ''">remark=#{remark},</if>
+            <if test="studentsSafetyInsurance != null">students_safety_insurance=#{studentsSafetyInsurance},</if>
+            <if test="record != null">record=#{record},</if>
+            <if test="protocol != null">protocol=#{protocol},</if>
+            <if test="memo != null">memo=#{memo},</if>
+        </trim>
+    </update>
+</mapper>

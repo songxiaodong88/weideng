@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>修改幼儿班/幼小衔接班学员信息</title>
+    <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+    <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+
+    <link rel="shortcut icon" href="favicon.ico"> <link href="/static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/static/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="/static/css/animate.css" rel="stylesheet">
+    <link href="/static/css/style.css?v=4.1.0" rel="stylesheet">
+
+    <!--radio单选框-->
+    <link href="/static/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+
+    <style>
+        .myHideStyle{
+            display: none;
+        }
+        .myShowStyle{
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5  style="font-family: '微软雅黑';">修改幼儿班/幼小衔接班学员信息</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                           <!-- <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="form_basic.html#">选项1</a>
+                                </li>
+                                <li><a href="form_basic.html#">选项2</a>
+                                </li>
+                            </ul>-->
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <form class="form-horizontal m-t" id="signupForm" action="/nurseryClass/doUpdateNurseryClass" method="post">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label"><span style="color: red">*</span>学生姓名:</label>
+                                <div class="col-sm-8">
+                                    <input name="sname" type="text" id="sName" class="form-control" th:value="${nurseryClass.sname}" readonly>
+                                    <input name="ncId" type="hidden" th:value="${nurseryClass.ncId}">
+                                    <input name="stuId" type="hidden" th:value="${nurseryClass.stuId}">
+                                    <input name="courseId" type="hidden" th:value="${nurseryClass.courseId}">
+                                    <input name="classId" type="hidden" th:value="${nurseryClass.classId}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label"><span style="color: red">*</span>课时/月:</label>
+                                <div class="col-sm-8">
+                                    <input name="classHour" required type="number" class="form-control" id="classHour1" min="0" max="9999" th:value="${nurseryClass.classHour}">
+                                </div>
+                            </div>
+                            <!--<div class="form-group">
+                                <label class="col-sm-3 control-label">原表中的截止日期:</label>
+                                <div class="col-sm-8">
+                                    <input name="periodOfValidity1" type="text" class="form-control" th:value="${nurseryClass.periodOfValidity}" readonly>
+                                </div>
+                            </div>-->
+                           <!-- <div class="form-group">
+                                <label class="col-sm-3 control-label">截止日期:</label>
+                                <div class="col-sm-8">
+                                    <input placeholder="开始日期" class="form-control layer-date" id="start" name="startTime" autocomplete="off">
+                                    <input placeholder="结束日期" class="form-control layer-date" id="end" name="endTime" autocomplete="off">
+                                </div>
+                            </div>-->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label"><span style="color: red">*</span>付款日期:</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control layer-date" style="height: 33px;" id="test1" name="payTime" required autocomplete="off" th:value="${nurseryClass.payTime}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label"><span style="color: red">*</span>联系方式:</label>
+                                <div class="col-sm-8">
+                                    <input name="phone" type="text" required class="form-control" id="phone" th:value="${nurseryClass.phone}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label"><span style="color: red">*</span>单价/月:</label>
+                                <div class="col-sm-8">
+                                    <input name="price" required type="number" class="form-control" id="price1" max="999999.99" th:value="${nurseryClass.price}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">缴费方式:</label>
+                                <div class="col-sm-8">
+                                    <input name="paymentMethod" type="text" class="form-control" th:value="${nurseryClass.paymentMethod}">
+                                </div>
+                            </div>
+                            <div id="nc">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">8月消课:</label>
+                                    <div class="col-sm-8">
+                                        <input name="august" type="number" class="form-control" th:value="${nurseryClass.august}" min="0" max="9999">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">9月消课:</label>
+                                    <div class="col-sm-8">
+                                        <input name="september" type="number" class="form-control" th:value="${nurseryClass.september}" min="0" max="9999">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">10月消课:</label>
+                                    <div class="col-sm-8">
+                                        <input name="october" type="number" class="form-control" th:value="${nurseryClass.october}" min="0" max="9999">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">11月消课:</label>
+                                    <div class="col-sm-8">
+                                        <input name="november" type="number" class="form-control" th:value="${nurseryClass.november}" min="0" max="9999">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">12月消课:</label>
+                                    <div class="col-sm-8">
+                                        <input name="december" type="number" class="form-control" th:value="${nurseryClass.december}" min="0" max="9999">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">1月消课:</label>
+                                    <div class="col-sm-8">
+                                        <input name="january" type="number" class="form-control" th:value="${nurseryClass.january}" min="0" max="9999">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">2月消课:</label>
+                                    <div class="col-sm-8">
+                                        <input name="february" type="number" class="form-control" th:value="${nurseryClass.february}" min="0" max="9999">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">3月消课:</label>
+                                    <div class="col-sm-8">
+                                        <input name="march" type="number" class="form-control" th:value="${nurseryClass.march}" min="0" max="9999">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">4月消课:</label>
+                                    <div class="col-sm-8">
+                                        <input name="april" type="number" class="form-control" th:value="${nurseryClass.april}" min="0" max="9999">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">5月消课:</label>
+                                    <div class="col-sm-8">
+                                        <input name="may" type="number" class="form-control" th:value="${nurseryClass.may}" min="0" max="9999">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">6月消课:</label>
+                                    <div class="col-sm-8">
+                                        <input name="june" type="number" class="form-control" th:value="${nurseryClass.june}" min="0" max="9999">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">7月消课:</label>
+                                    <div class="col-sm-8">
+                                        <input name="july" type="number" class="form-control" th:value="${nurseryClass.july}" min="0" max="9999">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">课外班:</label>
+                                <div class="col-sm-8">
+                                    <input name="interestClasses" type="text" class="form-control" th:value="${nurseryClass.interestClasses}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">书费:</label>
+                                <div class="col-sm-8">
+                                    <input name="bookPrice" type="number" id="book1" class="form-control" max="999999.99" min="0" th:value="${nurseryClass.bookPrice}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">小饭桌:</label>
+                                <div class="col-sm-8">
+                                    <input name="smallDiningTable" type="number" id="sdt1" class="form-control" max="999999.99" min="0" th:value="${nurseryClass.smallDiningTable}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">监控:</label>
+                                <div class="col-sm-8">
+                                    <input name="monitoring" type="number" class="form-control" id="mon1" max="999999.99" min="0" th:value="${nurseryClass.monitoring}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">接送费:</label>
+                                <div class="col-sm-8">
+                                    <input name="pickUp" type="number" class="form-control" id="pu1" max="999999.99" min="0" th:value="${nurseryClass.pickUp}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">学平险:</label>
+                                <div class="col-sm-8">
+                                    <div class="radio radio-info radio-inline">
+                                        <input name="studentsSafetyInsurance" type="radio" id="inlineRadio5" value="1" th:attr="checked=${studentsSafetyInsurance eq '1' ? true : false}"><label for="inlineRadio5">有</label>
+                                    </div>
+                                    <div class="radio radio-info radio-inline">
+                                        <input name="studentsSafetyInsurance" type="radio" id="inlineRadio6" value="2" th:attr="checked=${studentsSafetyInsurance eq '2' ? true : false}"><label for="inlineRadio6">无</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">档案:</label>
+                                <div class="col-sm-8">
+                                    <div class="radio radio-info radio-inline">
+                                        <input name="record" type="radio" id="inlineRadio1" value="1" th:attr="checked=${record eq '1' ? true : false}"><label for="inlineRadio1">有</label>
+                                    </div>
+                                    <div class="radio radio-info radio-inline">
+                                        <input name="record" type="radio" id="inlineRadio2" value="2" th:attr="checked=${record eq '2' ? true : false}"><label for="inlineRadio2">无</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">协议:</label>
+                                <div class="col-sm-8">
+                                    <div class="radio radio-info radio-inline">
+                                        <input name="protocol" type="radio" id="inlineRadio3" value="1" th:attr="checked=${protocol eq '1' ? true : false}"><label for="inlineRadio3">有</label>
+                                    </div>
+                                    <div class="radio radio-info radio-inline">
+                                        <input name="protocol" type="radio" id="inlineRadio4" value="2" th:attr="checked=${protocol eq '2' ? true : false}"><label for="inlineRadio4">无</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label"><span style="color: red">*</span>缴费金额:</label>
+                                <div class="col-sm-8">
+                                    <input name="total" required type="number" class="form-control" id="total1" th:value="${nurseryClass.total}" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">备注:</label>
+                                <div class="col-sm-8">
+                                    <input name="remark" type="text" class="form-control" th:value="${nurseryClass.remark}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">备忘:</label>
+                                <div class="col-sm-8">
+                                    <input name="memo" type="text" class="form-control" th:value="${nurseryClass.memo}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-8 col-sm-offset-3">
+                                    <button class="btn btn-primary" type="submit" id="tiJiao">确认修改</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <button class="btn btn-primary" type="button" onclick="window.history.go(-1)">返回</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- 全局js -->
+    <script src="/static/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/static/js/bootstrap.min.js?v=3.3.6"></script>
+
+    <!-- 自定义js -->
+    <script src="/static/js/content.js?v=1.0.0"></script>
+
+    <!-- jQuery Validation plugin javascript-->
+    <script src="/static/js/plugins/validate/jquery.validate.min.js"></script>
+    <script src="/static/js/plugins/validate/messages_zh.min.js"></script>
+
+    <script src="/static/js/demo/form-validate-demo.js"></script>
+
+    <!--日期控件-->
+    <script src="/static/laydate/laydate.js"></script>
+
+    <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
+    <!--统计代码，可删除-->
+
+    <script>
+        !function(){
+            laydate.skin('molv');//切换皮肤，请查看skins下面皮肤库
+            laydate({elem: '#demo'});//绑定元素
+        }();
+
+        //自定义日期格式
+        laydate({
+            elem: '#test1',
+            format: 'YYYY-MM-DD',
+            festival: true, //显示节日
+            max: laydate.now(), //最大日期
+            choose: function(datas){ //选择日期完毕的回调
+                // alert('得到：'+datas);
+            }
+        });
+
+        //日期范围限制
+        var start = {
+            elem: '#start',
+            format: 'YYYY.MM.DD',
+            // min: laydate.now(), //设定最小日期为当前日期
+            // max: '2099-06-16 23:59:59', //最大日期
+            max: laydate.now(), //最大日期
+            // istime: true,
+            istoday: false,
+            choose: function (datas) {
+                // end.min = datas; //开始日选好后，重置结束日的最小日期
+                end.start = datas //将结束日的初始值设定为开始日
+            }
+        };
+        var end = {
+            elem: '#end',
+            format: 'YYYY.MM.DD',
+            min: laydate.now(),
+            max: '2099-06-16 23:59:59',
+            // istime: true,
+            istoday: false,
+            choose: function (datas) {
+                // start.max = datas; //结束日选好后，重置开始日的最大日期
+            }
+        };
+        laydate(start);
+        laydate(end);
+    </script>
+
+    <script>
+        // $("#price1").blur(function () {
+
+        $("#total1").click(function () {
+            var classHour = $("#classHour1").val();//总课时
+            var price = $("#price1").val();//单价
+            var book = $("#book1").val();//书本费
+            var sdt = $("#sdt1").val();//小饭桌
+            var mon = $("#mon1").val();//监控
+            var pickUp = $("#pu1").val();//接送费
+            var total = Math.round(classHour * price * 100)/100;//学费统计
+            var sum =parseFloat(book) + parseFloat(sdt) + parseFloat(mon) + parseFloat(pickUp) + parseFloat(total);//合计
+            $("#total1").val(Math.round(sum*100)/100);
+        });
+    </script>
+
+    <script th:inline="javascript">
+        $(document).ready(function () {
+            var course = [[${courseId}]];
+            if (course === 1) {
+                $("#nc").attr("style","display:none;");
+            }/*else if(course === 2){
+                $("#nc").attr("style","display:block;");
+                // $(this).show();
+            }*/
+        })
+    </script>
+
+
+
+</body>
+
+</html>

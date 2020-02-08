@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+
+    <title>维登教育管理系统</title>
+
+    <!--[if lt IE 9]>
+    <meta http-equiv="refresh" content="0;ie.html"/>
+    <![endif]-->
+
+    <link rel="shortcut icon" href="/static/img/logo.ico">
+    <link href="/static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/static/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="/static/css/animate.css" rel="stylesheet">
+    <link href="/static/css/style.css?v=4.1.0" rel="stylesheet">
+
+    <link href="/static/css/style5.css" type="text/css" rel="stylesheet" />
+
+    <!--动态时间-->
+    <link type="text/css" rel="stylesheet" href="/static/css/public.css" />
+
+
+
+</head>
+
+<body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
+<div id="wrapper">
+    <!--左侧导航开始-->
+    <nav class="navbar-default navbar-static-side" role="navigation">
+        <div class="nav-close"><i class="fa fa-times-circle"></i>
+        </div>
+        <div class="sidebar-collapse">
+            <ul class="nav" id="side-menu">
+                <li class="nav-header">
+                    <div class="dropdown profile-element">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span>
+                                <span class="text-muted text-xs block">
+                                    <img alt="image" class="img-circle" th:src="${session.loginUser.photo}" width="64px" height="64px" />
+                                </span>
+                            </span>
+                        </a>
+                        <!-- <a data-toggle="dropdown" class="dropdown-toggle" href="#"> ${session.loginUser.photo}-->
+                        <span class="clear">
+									<!--<#&#45;&#45;<span class="block m-t-xs"><strong class="font-bold">Beaut-zihan</strong></span>&ndash;&gt;
+                               <#&#45;&#45;<span class="text-muted text-xs block">${personnel.preName}<b class="caret"></b></span>&ndash;&gt;--><!--th:text="${session.loginUser.username}"-->
+                            <span class="text-muted text-xs block" style="color: white" th:text="'欢迎您：'+${session.loginUser.username}">
+                                  <!--<section class="publicTime" style="margin-left: 150px;margin-top: 16px;">-->
+                                    <!--<span id="time"><b>2015年1月1日&nbsp;11:11&nbsp;星期一&nbsp;&nbsp;</b></span>-->
+                                <!--</section>-->
+                            </span>
+                            <span id="time"><b>2015年1月1日&nbsp;11:11&nbsp;星期一&nbsp;&nbsp;</b></span>
+                        </span>
+
+                        <!-- </a> -->
+                        <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                            <!--<li><a class="J_menuItem" href="form_avatar.html">修改头像</a></li>-->
+                            <li><a href="javascript:;" class="w-renting" id="userInfo">个人资料</a></li>
+                             <li><a class="J_menuItem" href="/users/toUpdPwd">修改密码</a></li>
+                            <!-- <li><a class="J_menuItem" href="mailbox.html">信箱</a></li> -->
+                            <!-- <li class="divider"></li> -->
+                            <li><a href="/login/logout">安全退出</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="logo-element">Home
+                    </div>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-bar-chart"></i><span class="nav-label">在校学员总表</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li><a class="J_menuItem" href="/studentInSchool/queryAllStudentInSchool">2019年度学员明细</a></li>
+                        <!-- <li>
+                            <a class="J_menuItem" href="/toaddfamily">新增户信息</a>
+                        </li> -->
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-language"></i><span class="nav-label">英语</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li><a class="J_menuItem" href="/english/queryAllEnglish">2019年度英语部统计</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="#"><i class="fa fa-paint-brush"></i> <span class="nav-label">书法</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li><a class="J_menuItem" href="/calligraphy/queryAllCalligraphy">2019年度上学期书法部统计(黄老师)</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-wikipedia-w"></i> <span class="nav-label">武术</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li><a class="J_menuItem" href="/wuShu/queryAllWuShu">2019年度武术部统计</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-calculator"></i> <span class="nav-label">奥数</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li><a class="J_menuItem" href="/aoShu/queryAllAoShuZhao">2019年度数学部赵老师统计</a></li>
+                        <li><a class="J_menuItem" href="/aoShu/queryAllAoShuZhang">2019年度数学部张老师统计</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-edit"></i> <span class="nav-label">绘画</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li><a class="J_menuItem" href="/art/queryAllArt">2019年度美术部统计</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-street-view"></i> <span class="nav-label">民族舞</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li><a class="J_menuItem" href="/folkDance/queryAllFolkDanceChen">2019年度舞蹈部陈璐老师统计</a></li>
+                        <li><a class="J_menuItem" href="/folkDance/queryAllFolkDanceYin">2019年度舞蹈部殷老师统计</a></li>
+                        <li><a class="J_menuItem" href="/folkDance/queryAllFolkDancePRE">2019年度舞蹈部幼小衔接班统计</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-child"></i> <span class="nav-label">幼儿班</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li><a class="J_menuItem" href="/nurseryClass/queryAllNurseryClass">2019年度幼儿班统计</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-male"></i> <span class="nav-label">幼小衔接班</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li><a class="J_menuItem" href="/preSchool/queryAllPRESchool">2019年度幼小衔接班统计</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-picture-o"></i> <span class="nav-label">油画、素描</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li><a class="J_menuItem" href="/oilPainting/queryAllOilPainting">2019年度油画、素描统计</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-user"></i> <span class="nav-label">信息管理</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li><a class="J_menuItem" href="/student/queryAllStudent">学生列表</a></li>
+                        <li><a class="J_menuItem" href="/course/queryAllCourse">课程列表</a></li>
+                        <li><a class="J_menuItem" href="/classes/queryAllClasses">班级列表</a></li>
+                        <li><a class="J_menuItem" href="/users/queryAllUsers">用户列表</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!--左侧导航结束-->
+    <!--右侧部分开始-->
+    <div id="page-wrapper" class="gray-bg dashbard-1">
+        <div class="row border-bottom">
+            <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                <div class="navbar-header"><a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i>
+                </a>
+                    <form role="search" class="navbar-form-custom" method="post" action="#">
+                        <div class="form-group">
+                            <input type="text" placeholder="请输入您需要查找的内容 …" class="form-control" name="top-search" id="top-search">
+                        </div>
+                    </form>
+                </div>
+                <ul class="nav navbar-top-links navbar-right">
+                    <li class="dropdown hidden-xs">
+                        <a class="right-sidebar-toggle" aria-expanded="false">
+                            <i class="fa fa-tasks"></i> 主题
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="row content-tabs">
+            <button class="roll-nav roll-left J_tabLeft"><i class="fa fa-backward"></i>
+            </button>
+            <nav class="page-tabs J_menuTabs">
+                <div class="page-tabs-content ">
+                    <a href="/login/toIndex" class="active J_menuTab" data-id="#">首页</a>
+                </div>
+
+            </nav>
+            <button class="roll-nav roll-right J_tabRight"><i class="fa fa-forward"></i>
+            </button>
+            <div class="btn-group roll-nav roll-right">
+                <button class="dropdown J_tabClose" data-toggle="dropdown">关闭操作<span class="caret"></span>
+
+                </button>
+                <ul role="menu" class="dropdown-menu dropdown-menu-right">
+                    <li class="J_tabShowActive"><a>定位当前选项卡</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li class="J_tabCloseAll"><a href="/login/toIndex">关闭全部选项卡</a>
+                    </li>
+                    <li class="J_tabCloseOther"><a>关闭其他选项卡</a>
+                    </li>
+                </ul>
+            </div>
+            <a href="/login/logout" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
+        </div>
+
+        <div class="row J_mainContent" id="content-main">
+
+            <!--<#&#45;&#45;<iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="./index_v1.html?v=4.0"&ndash;&gt;
+        <#&#45;&#45;frameborder="0" data-id="#" seamless></iframe>&ndash;&gt;-->
+            <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="/login/toRight" frameborder="0" seamless></iframe>
+        </div>
+
+        <div class="footer">
+            <div class="pull-right">Copyright &copy; 2019-2024 <a href="" target="_blank">维登教育管理平台</a>
+            </div>
+        </div>
+    </div>
+    <!--右侧部分结束-->
+    <!--右侧边栏开始-->
+    <div id="right-sidebar">
+        <div class="sidebar-container">
+
+            <ul class="nav nav-tabs navs-3">
+
+                <li class="active">
+                    <a data-toggle="tab" href="#tab-1">
+                        <i class="fa fa-gear"></i> 主题
+                    </a>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                <div id="tab-1" class="tab-pane active">
+                    <div class="sidebar-title">
+                        <h3><i class="fa fa-comments-o"></i> 主题设置</h3>
+                        <small><i class="fa fa-tim"></i> 你可以从这里选择和预览主题的布局和样式，这些设置会被保存在本地，下次打开的时候会直接应用这些设置。</small>
+                    </div>
+                    <div class="skin-setttings">
+                        <div class="title">主题设置</div>
+                        <div class="setings-item">
+                            <span>收起左侧菜单</span>
+                            <div class="switch">
+                                <div class="onoffswitch">
+                                    <input type="checkbox" name="collapsemenu" class="onoffswitch-checkbox" id="collapsemenu">
+                                    <label class="onoffswitch-label" for="collapsemenu">
+                                        <span class="onoffswitch-inner"></span>
+                                        <span class="onoffswitch-switch"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="setings-item">
+                            <span>固定顶部</span>
+
+                            <div class="switch">
+                                <div class="onoffswitch">
+                                    <input type="checkbox" name="fixednavbar" class="onoffswitch-checkbox" id="fixednavbar">
+                                    <label class="onoffswitch-label" for="fixednavbar">
+                                        <span class="onoffswitch-inner"></span>
+                                        <span class="onoffswitch-switch"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="setings-item">
+									<span>
+										固定宽度
+									</span>
+
+                            <div class="switch">
+                                <div class="onoffswitch">
+                                    <input type="checkbox" name="boxedlayout" class="onoffswitch-checkbox" id="boxedlayout">
+                                    <label class="onoffswitch-label" for="boxedlayout">
+                                        <span class="onoffswitch-inner"></span>
+                                        <span class="onoffswitch-switch"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="title">皮肤选择</div>
+                        <div class="setings-item default-skin nb">
+									<span class="skin-name ">
+										<a href="#" class="s-skin-0">
+											默认皮肤
+										</a>
+									</span>
+                        </div>
+                        <div class="setings-item blue-skin nb">
+									<span class="skin-name ">
+										<a href="#" class="s-skin-1">
+											蓝色主题
+										</a>
+									</span>
+                        </div>
+                        <div class="setings-item yellow-skin nb">
+									<span class="skin-name ">
+										<a href="#" class="s-skin-3">
+											黄色/紫色主题
+										</a>
+									</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!--右侧边栏结束-->
+    <!--mini聊天窗口开始-->
+    <!-- <div class="small-chat-box fadeInRight animated">
+
+        <div class="heading" draggable="true">
+            <small class="chat-date pull-right">
+                时间
+            </small>
+            与 XXX 聊天中
+        </div>
+
+        <div class="content">
+
+        </div>
+        <div class="form-chat">
+    <div class="input-group input-group-sm">
+        <input type="text" class="form-control"> <span class="input-group-btn"> <button
+            class="btn btn-primary" type="button">发送
+        </button> </span>
+    </div>
+</div>
+
+    </div>
+    <div id="small-chat">
+        <span class="badge badge-warning pull-right">5</span>
+        <a class="open-small-chat">
+            <i class="fa fa-comments"></i>
+        </a>
+    </div> -->
+    <!--mini聊天窗口结束-->
+
+    <div class="popup-renting" id="detailUser" >
+        <div class="popup-close"></div>
+        <div align="center">
+            <br>
+            <h2><a href="javascript:;"><b>用户详情</b></a></h2>
+            <br>
+            <table border="1" align="center" class="table table-striped table-bordered table-hover dataTables-example" style="width: 80%">
+                <tr>
+                    <th>用户名:</th>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>用户角色:</th>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>创建时间:</th>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>用户头像:</th>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+
+
+    <!--<div class="wrapper-content animated fadeInRight">-->
+    <!--<div id="modal-form" class="modal fade" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h1>新增设备</h1>
+                </div>
+                <div class="ibox-content">
+                    <form class="form-horizontal m-t" id="commentForm" action="/addept" method="post">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label"><span style="color: red">*</span>类型：</label>
+                            <div class="col-sm-8">
+                                <input name="eptType" required type="text" class="form-control">
+                            </div>
+                        </div>
+                        <p align="center" style="color: red" id="prePhones"></p>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label"><span style="color: red">*</span>厂家：</label>
+                            <div class="col-sm-8">
+                                <input name="eptFacty" required type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label"><span style="color: red">*</span>型号：</label>
+                            <div class="col-sm-8">
+                                <input name="eptModel" required type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label"><span style="color: red">*</span>单价：</label>
+                            <div class="col-sm-8">
+                                <input name="eptPrice" required pattern="^\+?[1-9][0-9]*$" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <p align="center" style="color: red" id="preEmails"></p>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label"><span style="color: red">*</span>数量：</label>
+                            <div class="col-sm-8">
+                                <input name="eptStock" required pattern="^\+?[1-9][0-9]*$" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-3">
+                                <button class="btn btn-primary" type="submit">提交</button>
+                                <button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>-->
+    <!--</div>-->
+
+
+
+</div>
+
+    <!-- 全局js -->
+    <script src="/static/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/static/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="/static/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="/static/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="/static/js/plugins/layer/layer.min.js"></script>
+
+    <script type="text/javascript" src="/static/js/jquery.jshowoff.min.js"></script>
+    <!-- 自定义js -->
+    <script src="/static/js/hplus.js?v=4.1.0"></script>
+    <script type="text/javascript" src="/static/js/contabs.js"></script>
+
+    <!-- 第三方插件 -->
+    <script src="/static/js/plugins/pace/pace.min.js"></script>
+
+    <!--弹框-->
+    <script type="text/javascript" src="/static/js/WdatePicker.js"></script>
+    <script type="text/javascript" src="/static/js/popup.mini.js"></script>
+
+    <!--动态时间-->
+    <script type="text/javascript" src="/static/js/time.js"></script>
+
+    <script language="javascript">
+        //防止页面后退
+        history.pushState(null, null, document.URL);
+        window.addEventListener('popstate', function () {
+            history.pushState(null, null, document.URL);
+        });
+
+       /* window.location.hash="no-back";
+        window.location.hash="Again-No-back-button";
+        window.onhashchange=function(){
+            window.location.hash="no-back";
+        }*/
+    </script>
+
+    <script type='text/javascript'>
+        (function(){
+            new PopUp_api({el:'.w-buyhouse',html:'.popup-buy'});
+            new PopUp_api({el:'.w-sellhouse',html:'.popup-sell'});
+            new PopUp_api({el:'.w-renthouse',html:'.popup-rent'});
+            new PopUp_api({el:'.w-renting',html:'.popup-renting'});
+        })()
+    </script>
+
+    <script th:inline="javascript">
+        $("#userInfo").click(function () {
+            $("#detailUser").hide();
+            var u = [[${session.loginUser.uid}]];
+            $.ajax({
+                type:"get",
+                url:"/users/detailUserById",
+                data:{"uid":u},
+                success:function (returnData) {
+                    // alert(returnData.username);
+                    $("#detailUser table tr:eq(0) td").html(returnData.uid);
+                    var role = returnData.userrole;
+                    var r;
+                    if (role === 1) {
+                        r = "普通用户";
+                    }
+                    if(role === 2){
+                        r = "管理员";
+                    }
+                    $("#detailUser table tr:eq(1) td").html(r);
+                    $("#detailUser table tr:eq(2) td").html(returnData.createtime);
+                    $("#detailUser table tr:eq(3) td").html("<img style='width: 150px;height: 100px' src="+returnData.photo+">");
+                    $("#detailUser").hide().slideDown(3000);
+                }
+            })
+        })
+    </script>
+
+
+</body>
+
+
+
+</html>

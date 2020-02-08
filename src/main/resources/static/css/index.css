@@ -1,0 +1,131 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html,
+body {
+	width: 100%;
+	height: 100%;
+}
+
+body {
+	background: url('../img/image_bg.png') no-repeat;
+	background-size: 100% 100%;
+}
+
+.title {
+    width: 100%;
+    padding: 1.4% 0;
+    height: 10px;
+    background: url('../img/22.png') no-repeat;
+    background-size: 100% 100%;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.condition{
+	color: white;
+	font-size: 16px;
+}
+
+.condition>div{
+	display: flex;
+	align-items: center;
+}
+
+.condition>div span{
+	margin-right: 10px;
+}
+
+.container{
+	padding: 0px 2%;
+	height: 90%;
+}
+
+.data{
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: space-between;
+	margin-top: 1%;
+}
+
+.charts{
+	height: 32%;
+	width: 100%;
+	overflow: hidden;
+}
+
+.all {
+	height: 94%;
+	width: 28.23%;
+	/* background: aliceblue; */
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+
+}
+
+.all>div {
+	background: rgba(4, 71, 222, .1)
+}
+
+.monitor>div {
+	background: rgba(4, 71, 222, .1)
+}
+
+.map {
+	height: 94%;
+	width: calc(100% - 28.23%*2);
+	padding: 0 3%;
+	color: white;
+}
+
+#map{
+	width: 100%;
+	height: 90%;
+}
+
+.count{
+	background: rgba(4, 71, 222, .2);
+	height: 14%;
+	width: 100%;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+
+}
+
+.count .text{
+	font-size: 0.8rem;
+	color: white;
+}
+
+.count .num{
+	color: #0FEBFF ;
+	font-weight: 600;
+}
+
+.monitor {
+	width: 28.23%;
+	height: 94%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.pivotal_text{
+	color: #0FEBFF;
+	font-size: 1.1rem;
+}
+
+.progress{
+	display: flex;
+	align-items: center;
+}
+.progress .text{
+	margin-right: 15px;
+}

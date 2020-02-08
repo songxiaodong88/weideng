@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wisdom.dao.ClassesDao">
+
+    <!--根据班级名称查询班级ID-->
+    <select id="selectClassIDByClassName" resultType="integer">
+        select c1.class_id from classes c1 where c1.cname=#{cname} and c1.schooltime=#{schooltime}
+    </select>
+
+    <!--查询所有班级信息-->
+    <select id="queryAllUsers" resultType="com.wisdom.entity.ClassesEntity">
+        select (@i:=@i+1) AS index_id, c1.class_id,c1.category,c1.cname,c1.schooltime from classes c1, (SELECT @i:=0) AS init  order by c1.category
+    </select>
+
+    <!--根据课程ID查询班级信息-->
+    <select id="queryClassByCourseId" resultType="com.wisdom.entity.ClassesEntity" parameterType="list">
+        select c1.class_id,c1.category,c1.cname,c1.schooltime,c1.course_id from classes c1
+            <where>
+                c1.course_id in
+                <foreach item="cId" collection="list" separator="," open="(" close=")" index="">
+                    #{cId}
+                </foreach>
+            </where>
+    </select>
+
+    <!--根据班级ID查询课程ID-->
+    <select id="queryCourseIdByClassId" resultType="java.lang.Integer">
+        select c1.course_id from classes c1 where c1.class_id=#{classId}
+    </select>
+
+</mapper>

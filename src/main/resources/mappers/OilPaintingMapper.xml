@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wisdom.dao.OilPaintingDao">
+
+    <sql id="selectSql">
+        SELECT
+        T.OP_ID,
+        T.STU_ID,
+        T.CLASS_ID,
+        T.COURSE_ID,
+        T.REGISTRATION_TIME,
+        T.TOTAL,
+        T.CLASS_HOUR,
+        T.GIVE_LESSONS,
+        T.PRICE,
+        T.YIBA_NOVEMBER,
+        T.YIBA_DECEMBER,
+        T.YIJIU_JANUARY,
+        T.YIJIU_MARCH,
+        T.YIJU_APRIL,
+        T.YIJIU_MAY,
+        T.YIJIU_JUNE,
+        T.YIJIU_JULY,
+        T.YIJIU_SEPTEMBER,
+        T.YIJIU_OCTOBER,
+        T.YIJIU_NOVEMBER,
+        T.YIJIU_DECEMBER,
+        T.STATUS
+        FROM OIL_PAINTING T
+        WHERE 1=1
+        <if test="params.name != null and params.name.trim() != ''">
+            AND T.NAME LIKE '%${params.name}%'
+        </if>
+    </sql>
+
+    <select id="selectOilPaintingPage" resultType="com.wisdom.entity.OilPaintingEntity">
+        <include refid="selectSql"/>
+    </select>
+
+    <select id="queryAll" resultType="com.wisdom.entity.OilPaintingEntity">
+        <include refid="selectSql"/>
+    </select>
+</mapper>

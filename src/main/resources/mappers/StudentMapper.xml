@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wisdom.dao.StudentDao">
+
+    <sql id="selectSql">
+        SELECT
+        T.SID,
+        T.SNAME,
+        T.SEX,
+        T.BIRTHDAY,
+        T.NATION,
+        T.PHONE,
+        T.REMARK,
+        T.STATUS
+        FROM STUDENT T
+        WHERE 1=1 AND T.STATUS=1
+        <if test="params.name != null and params.name.trim() != ''">
+            AND T.NAME LIKE '%${params.name}%'
+        </if>
+    </sql>
+
+    <select id="selectStudentPage" resultType="com.wisdom.entity.StudentEntity">
+        <include refid="selectSql"/>
+    </select>
+
+    <select id="queryAll" resultType="com.wisdom.entity.StudentEntity">
+        <include refid="selectSql"/>
+    </select>
+
+    <!--根据学生姓名查询学生ID-->
+    <select id="selectStuIDBySname" resultType="java.lang.Integer">
+        select s1.sid from student s1 where s1.sname=#{sname}
+    </select>
+
+    <!--根据ID查看学生详情-->
+    <select id="detailStudentBySid" resultType="com.wisdom.entity.StudentEntity">
+        select stu.sid,stu.sname,stu.sex,stu.birthday,stu.nation,stu.phone,stu.remark from student stu where stu.sid=#{sid}
+    </select>
+
+    <!--查询所有退学学生信息-->
+    <select id="queryAllStudentByTuiXue" resultType="com.wisdom.entity.StudentEntity">
+        select stu.sid,stu.sname,stu.sex,stu.birthday,stu.nation,stu.phone,stu.remark,stu.status from student stu where stu.status=0
+    </select>
+
+    <!--删除学生信息-->
+    <update id="updStudentOfStatus">
+        update student set status=0 where sid=#{sid}
+    </update>
+</mapper>

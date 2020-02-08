@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wisdom.dao.PRESchoolDao">
+
+    <!--查询所有幼小衔接班信息-->
+    <select id="queryAllPRESchool" resultType="com.wisdom.dto.PRESchoolDTO">
+        SELECT nc.`nc_id`,c1.`cname`,c1.`schooltime`,stu.`sname`,nc.`total`,
+        nc.`payment_method`,nc.`period_of_validity`,nc.`pay_time`,nc.`phone`,nc.`interest_classes`,nc.`book_price`,
+        nc.`small_dining_table`,nc.`monitoring`,nc.`pick_up`,
+        nc.`remark`,nc.`students_safety_insurance`,nc.`record`,nc.`protocol`,nc.`memo`,sum_tj.*
+        FROM student stu
+        LEFT JOIN `nursery_class` nc ON stu.`sid`=nc.`stu_id`
+        LEFT JOIN classes c1 ON c1.`class_id`=nc.`class_id`
+        LEFT JOIN course c2 ON c2.`cid`=nc.`course_id`,
+        (SELECT SUM(`total`)sum_total FROM nursery_class WHERE `course_id`=1) sum_tj
+        WHERE c2.`cid`=1 and stu.status=1 and nc.status=1
+    </select>
+</mapper>

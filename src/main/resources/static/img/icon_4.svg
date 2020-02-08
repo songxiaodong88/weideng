@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="19px" viewBox="0 0 18 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55.2 (78181) - https://sketchapp.com -->
+    <title>icon_用电趋势</title>
+    <desc>Created with Sketch.</desc>
+    <g id="页面1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="大屏幕" transform="translate(-1348.000000, -136.000000)">
+            <g id="区域用电趋势" transform="translate(1338.000000, 124.000000)">
+                <g id="icon" transform="translate(10.000000, 12.000000)">
+                    <rect id="矩形" stroke="#0D68CE" stroke-width="2" x="1" y="3" width="16" height="14" rx="3"></rect>
+                    <rect id="矩形" fill="#0D68CE" x="5" y="0" width="8" height="3" rx="1.5"></rect>
+                    <polygon id="路径-14" fill="#0D68CE" points="9.95744062 5 6 10.575373 8.43848055 10.575373 7.97792919 15 12 9.46131161 9.34076658 9.46131161"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

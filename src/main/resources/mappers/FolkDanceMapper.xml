@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wisdom.dao.FolkDanceDao">
+
+    <!--查询所有陈老师民族舞信息-->
+    <select id="queryAllFolkDance_chen" resultType="com.wisdom.dto.FolkDanceDTO">
+        SELECT cd.`cd_id`,c1.`cname`,c1.`schooltime`,stu.`sname`,cd.`class_hour`,
+        cd.`price`,cd.`total`,cd.`tuition_form`,cd.`September`,cd.`October`,cd.`November`,cd.`December`,
+        cd.January,cd.February,cd.March,cd.April,cd.May,cd.June,cd.July,cd.August,cd.`period_of_validity`,sum_tj.*
+        FROM student stu
+        LEFT JOIN cost_details cd ON stu.`sid`=cd.`stu_id`
+        LEFT JOIN classes c1 ON c1.`class_id`=cd.`class_id`
+        LEFT JOIN course c2 ON c2.`cid`=cd.`course_id`,
+        (SELECT SUM(`total`)sum_total,SUM(`September`) sum_jiu,SUM(`October`)sum_shi,SUM(`November`)sum_shy,
+        SUM(`December`)sum_she FROM cost_details WHERE `course_id`= 20 AND `class_id`=29) sum_tj
+        WHERE c2.`cid`=20 AND c1.`class_id`=29 and stu.status=1 and cd.status=1
+    </select>
+
+    <!--查询所有殷老师民族舞信息-->
+    <select id="queryAllFolkDance_yin" resultType="com.wisdom.dto.FolkDanceDTO">
+        SELECT cd.`cd_id`,c1.`cname`,c1.`schooltime`,stu.`sname`,cd.`class_hour`,
+        cd.`price`,cd.`total`,cd.`tuition_form`,cd.`September`,cd.`October`,cd.`November`,cd.`December`,
+        cd.January,cd.February,cd.March,cd.April,cd.May,cd.June,cd.July,cd.August,cd.`period_of_validity`,sum_tj.*
+        FROM student stu
+        LEFT JOIN cost_details cd ON stu.`sid`=cd.`stu_id`
+        LEFT JOIN classes c1 ON c1.`class_id`=cd.`class_id`
+        LEFT JOIN course c2 ON c2.`cid`=cd.`course_id`,
+        (SELECT SUM(`total`)sum_total,SUM(`September`) sum_jiu,SUM(`October`)sum_shi,SUM(`November`)sum_shy,
+        SUM(`December`)sum_she FROM cost_details WHERE `course_id`= 19 AND `class_id`= 31) sum_tj
+        WHERE c2.`cid`=19 AND c1.`class_id`=31 and stu.status=1 and cd.status=1
+    </select>
+
+    <!--查询所有幼小衔接班民族舞信息-->
+    <select id="queryAllFolkDance_PRE" resultType="com.wisdom.dto.FolkDanceDTO">
+        SELECT cd.`cd_id`,c1.`cname`,c1.`schooltime`,stu.`sname`,cd.`class_hour`,
+        cd.`price`,cd.`total`,cd.`tuition_form`,cd.`September`,cd.`October`,cd.`November`,cd.`December`,
+        cd.January,cd.February,cd.March,cd.April,cd.May,cd.June,cd.July,cd.August,cd.`period_of_validity`,sum_tj.*
+        FROM student stu
+        LEFT JOIN cost_details cd ON stu.`sid`=cd.`stu_id`
+        LEFT JOIN classes c1 ON c1.`class_id`=cd.`class_id`
+        LEFT JOIN course c2 ON c2.`cid`=cd.`course_id`,
+        (SELECT SUM(`total`)sum_total,SUM(`September`) sum_jiu,SUM(`October`)sum_shi,SUM(`November`)sum_shy,
+        SUM(`December`)sum_she FROM cost_details WHERE `course_id`= 25 AND `class_id`= 30) sum_tj
+        WHERE c2.`cid`=25 AND c1.`class_id`=30 and stu.status=1 and cd.status=1
+    </select>
+</mapper>

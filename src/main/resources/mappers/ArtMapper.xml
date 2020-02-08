@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wisdom.dao.ArtDao">
+
+    <!--查询所有绘画部信息-->
+    <select id="queryAllArt" resultType="com.wisdom.dto.ArtDTO">
+        SELECT cd.`cd_id`,c1.`cname`,c1.`schooltime`,stu.`sname`,cd.`class_hour`,
+        cd.`price`,cd.`total`,cd.`tuition_form`,cd.`September`,cd.`October`,cd.`November`,cd.`December`,
+        cd.January,cd.February,cd.March,cd.April,cd.May,cd.June,cd.July,cd.August,cd.`period_of_validity`,cd.`remark`,sum_tj.*
+        FROM student stu
+        LEFT JOIN cost_details cd ON stu.`sid`=cd.`stu_id`
+        LEFT JOIN classes c1 ON c1.`class_id`=cd.`class_id`
+        LEFT JOIN course c2 ON c2.`cid`=cd.`course_id`,
+        (SELECT SUM(`total`)sum_total,SUM(`September`) sum_jiu,SUM(cd1.`October`)sum_shi,SUM(cd1.`November`)sum_shy,
+        SUM(cd1.`December`)sum_she FROM cost_details cd1 WHERE cd1.`course_id` IN(12,13)) sum_tj
+        WHERE c2.`cid` IN(12,13) and stu.status=1 and cd.status=1
+        order by c1.cname
+    </select>
+</mapper>
