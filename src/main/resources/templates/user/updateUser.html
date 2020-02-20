@@ -12,10 +12,11 @@
     <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
     <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
 
-    <link rel="shortcut icon" href="favicon.ico"> <link href="/static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
-    <link href="/static/css/font-awesome.css?v=4.4.0" rel="stylesheet">
-    <link href="/static/css/animate.css" rel="stylesheet">
-    <link href="/static/css/style.css?v=4.1.0" rel="stylesheet">
+    <link rel="shortcut icon" href="/img/logo.jpg">
+    <link href="/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="/css/animate.css" rel="stylesheet">
+    <link href="/css/style.css?v=4.1.0" rel="stylesheet">
 
 </head>
 
@@ -72,8 +73,8 @@
                                 <div class="col-sm-8">
                                     <select name="userrole" id="uRole" class="form-control">
                                         <option value="">--请选择--</option>
-                                        <option value="1">普通用户</option>
-                                        <option value="2">管理员</option>
+                                        <option value="1" th:field="*{uInfo.userrole}">普通用户</option>
+                                        <option value="2" th:field="*{uInfo.userrole}">管理员</option>
                                     </select>
                                 </div>
                             </div>
@@ -81,7 +82,7 @@
                                 <label class="col-sm-3 control-label">用户头像：</label>
                                 <div class="col-sm-8">
 
-                                    <img th:src="${uInfo.photo}" id="user-pic" style="width: 200px;height: 120px;"><span>
+                                    <img th:src="'/users/show?fileName='+${uInfo.photo}" id="user-pic" style="width: 200px;height: 120px;"><span>
                                     <input name="pic" class="form-control" onchange="show(this)" type="file" style="width: 200px"></span>
                                 </div>
                             </div>
@@ -103,7 +104,8 @@
                             <div class="form-group">
                                 <div class="col-sm-8 col-sm-offset-3">
                                     <button class="btn btn-primary" type="submit" id="tiJiao">提交</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <button class="btn btn-primary" type="button" onclick="window.history.go(-1)">返回</button>
+                                    <!--<button class="btn btn-primary" type="button" onclick="javascript:history.back(-1);">返回</button>-->
+                                    <button class="btn btn-primary" type="button" onclick="location='/users/queryAllUsers'">返回</button>
                                 </div>
                             </div>
                         </form>
@@ -116,17 +118,17 @@
 
 
     <!-- 全局js -->
-    <script src="/static/js/jquery.min.js?v=2.1.4"></script>
-    <script src="/static/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/js/bootstrap.min.js?v=3.3.6"></script>
 
     <!-- 自定义js -->
-    <script src="/static/js/content.js?v=1.0.0"></script>
+    <script src="/js/content.js?v=1.0.0"></script>
 
     <!-- jQuery Validation plugin javascript-->
-    <script src="/static/js/plugins/validate/jquery.validate.min.js"></script>
-    <script src="/static/js/plugins/validate/messages_zh.min.js"></script>
+    <script src="/js/plugins/validate/jquery.validate.min.js"></script>
+    <script src="/js/plugins/validate/messages_zh.min.js"></script>
 
-    <script src="/static/js/demo/form-validate-demo.js"></script>
+    <script src="/js/demo/form-validate-demo.js"></script>
 
     <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
     <!--统计代码，可删除-->
@@ -193,6 +195,13 @@
             $("#uRole").find("option[value="+param+"]").attr('selected','selected');
         })
     </script>
+
+    <script>
+        $("form").submit(function(){
+            $(":submit",this).attr("disabled","disabled");
+        });
+    </script>
+
 </body>
 
 </html>

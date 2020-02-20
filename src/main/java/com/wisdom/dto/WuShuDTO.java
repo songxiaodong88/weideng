@@ -1,10 +1,13 @@
 package com.wisdom.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 武术DTO
@@ -23,7 +26,9 @@ public class WuShuDTO implements Serializable {
     //   姓名
     private String sname;
     //  缴费时间
-    private Data payTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
+    private Date payTime;
     //  总课次数
     private Integer classHour;
     //  课次单价

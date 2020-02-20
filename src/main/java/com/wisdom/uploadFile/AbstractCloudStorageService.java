@@ -17,7 +17,7 @@ public abstract class AbstractCloudStorageService {
     /**
      * 云存储配置信息
      */
-//    CloudStorageConfig config;
+    CloudStorageConfig config;
 //    String filePath = "";
 
     /**

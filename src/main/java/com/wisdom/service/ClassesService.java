@@ -14,7 +14,7 @@ public interface ClassesService extends IService<ClassesEntity> {
     Integer selectClassIDByClassName(String cname, String schooltime);
 
     //    查询所有班级信息
-    List<ClassesEntity> queryAllUsers();
+    List<ClassesEntity> queryAllClasses();
 
     //  根据课程ID查询班级信息
     List<ClassesEntity> queryClassByCourseId(List<Integer> courseId);
@@ -30,7 +30,7 @@ public interface ClassesService extends IService<ClassesEntity> {
      */
     boolean update(ClassesEntity classesEntity);
 
-    //  根据主键查询详情
-    ClassesEntity getById(Serializable id);
+    //  根据班级ID查看班级详情
+    ClassesEntity detailClassesByClassId(@Param("classId") Integer classId);
 
 }

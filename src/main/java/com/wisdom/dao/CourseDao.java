@@ -5,7 +5,9 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.wisdom.entity.CourseEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.poi.ss.formula.functions.T;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -35,6 +37,14 @@ public interface CourseDao extends BaseMapper<CourseEntity> {
      */
     List<CourseEntity> selectCoursePage(IPage page, @Param("params") Map<String, Object> params);
 
+    //  查询所有课程
+    List<CourseEntity> queryAllCourse();
+
     //  根据课程名称查询课程ID
     List<Integer> selectCidByCname(@Param("cname") String cname);
+
+    //    根据课程ID查看课程信息
+    CourseEntity detailCourseByCid(@Param("cid") Integer cid);
+
+
 }

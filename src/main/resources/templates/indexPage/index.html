@@ -11,16 +11,16 @@
     <meta http-equiv="refresh" content="0;ie.html"/>
     <![endif]-->
 
-    <link rel="shortcut icon" href="/static/img/logo.ico">
-    <link href="/static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
-    <link href="/static/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
-    <link href="/static/css/animate.css" rel="stylesheet">
-    <link href="/static/css/style.css?v=4.1.0" rel="stylesheet">
+    <link rel="shortcut icon" href="/img/logo.jpg">
+    <link href="/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="/css/animate.css" rel="stylesheet">
+    <link href="/css/style.css?v=4.1.0" rel="stylesheet">
 
-    <link href="/static/css/style5.css" type="text/css" rel="stylesheet" />
+    <link href="/css/style5.css" type="text/css" rel="stylesheet" />
 
     <!--动态时间-->
-    <link type="text/css" rel="stylesheet" href="/static/css/public.css" />
+    <link type="text/css" rel="stylesheet" href="/css/public.css" />
 
 
 
@@ -39,7 +39,7 @@
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span>
                                 <span class="text-muted text-xs block">
-                                    <img alt="image" class="img-circle" th:src="${session.loginUser.photo}" width="64px" height="64px" />
+                                    <img alt="image" class="img-circle" th:src="'/users/show?fileName='+${session.loginUser.photo}" width="64px" height="64px" />
                                 </span>
                             </span>
                         </a>
@@ -85,7 +85,7 @@
                     </ul>
                 </li>
 
-                <li>
+                <!--<li>
                     <a href="#"><i class="fa fa-paint-brush"></i> <span class="nav-label">书法</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li><a class="J_menuItem" href="/calligraphy/queryAllCalligraphy">2019年度上学期书法部统计(黄老师)</a></li>
@@ -135,7 +135,7 @@
                     <ul class="nav nav-second-level">
                         <li><a class="J_menuItem" href="/oilPainting/queryAllOilPainting">2019年度油画、素描统计</a></li>
                     </ul>
-                </li>
+                </li>-->
                 <li>
                     <a href="#"><i class="fa fa-user"></i> <span class="nav-label">信息管理</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
@@ -419,26 +419,26 @@
 </div>
 
     <!-- 全局js -->
-    <script src="/static/js/jquery.min.js?v=2.1.4"></script>
-    <script src="/static/js/bootstrap.min.js?v=3.3.6"></script>
-    <script src="/static/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="/static/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-    <script src="/static/js/plugins/layer/layer.min.js"></script>
+    <script src="/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="/js/plugins/layer/layer.min.js"></script>
 
-    <script type="text/javascript" src="/static/js/jquery.jshowoff.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.jshowoff.min.js"></script>
     <!-- 自定义js -->
-    <script src="/static/js/hplus.js?v=4.1.0"></script>
-    <script type="text/javascript" src="/static/js/contabs.js"></script>
+    <script src="/js/hplus.js?v=4.1.0"></script>
+    <script type="text/javascript" src="/js/contabs.js"></script>
 
     <!-- 第三方插件 -->
-    <script src="/static/js/plugins/pace/pace.min.js"></script>
+    <script src="/js/plugins/pace/pace.min.js"></script>
 
     <!--弹框-->
-    <script type="text/javascript" src="/static/js/WdatePicker.js"></script>
-    <script type="text/javascript" src="/static/js/popup.mini.js"></script>
+    <script type="text/javascript" src="/js/WdatePicker.js"></script>
+    <script type="text/javascript" src="/js/popup.mini.js"></script>
 
     <!--动态时间-->
-    <script type="text/javascript" src="/static/js/time.js"></script>
+    <script type="text/javascript" src="/js/time.js"></script>
 
     <script language="javascript">
         //防止页面后退
@@ -484,7 +484,7 @@
                     }
                     $("#detailUser table tr:eq(1) td").html(r);
                     $("#detailUser table tr:eq(2) td").html(returnData.createtime);
-                    $("#detailUser table tr:eq(3) td").html("<img style='width: 150px;height: 100px' src="+returnData.photo+">");
+                    $("#detailUser table tr:eq(3) td").html("<img style='width: 150px;height: 100px' src=" + '/users/show?fileName=' + returnData.photo + ">");
                     $("#detailUser").hide().slideDown(3000);
                 }
             })

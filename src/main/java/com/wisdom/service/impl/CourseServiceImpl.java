@@ -19,6 +19,11 @@ public class CourseServiceImpl extends ServiceImpl<CourseDao, CourseEntity> impl
     }
 
     @Override
+    public List<CourseEntity> queryAllCourse(){
+        return baseMapper.queryAllCourse();
+    }
+
+    @Override
     public boolean update(CourseEntity courseEntity) {
         return this.updateById(courseEntity);
     }
@@ -31,5 +36,10 @@ public class CourseServiceImpl extends ServiceImpl<CourseDao, CourseEntity> impl
     @Override
     public List<Integer> selectCidByCname(String cname) {
         return baseMapper.selectCidByCname(cname);
+    }
+
+    @Override
+    public CourseEntity detailCourseByCid(Integer cid) {
+        return baseMapper.detailCourseByCid(cid);
     }
 }

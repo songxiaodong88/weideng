@@ -30,8 +30,8 @@ public class CourseController {
 
     //  查询所有课程信息
     @RequestMapping(value="queryAllCourse")
-    public String queryAllCourse(Model model,Map<String,Object>params){
-        List<CourseEntity> cList = courseService.queryAll(params);
+    public String queryAllCourse(Model model){
+        List<CourseEntity> cList = courseService.queryAllCourse();
         model.addAttribute("courseList", cList);
         return "infoManagement/coursesList";
     }
@@ -64,7 +64,7 @@ public class CourseController {
     //  去修改课程信息页面
     @RequestMapping(value="toUpdateCourse")
     public String toUpdateCourse(Integer cid,Model model){
-        model.addAttribute("courseInfo", courseService.getById(cid));
+        model.addAttribute("courseInfo", courseService.detailCourseByCid(cid));
         return "course/updateCourse";
     }
 

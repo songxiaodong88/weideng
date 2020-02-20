@@ -15,9 +15,9 @@ import java.net.URLEncoder;
  * 过滤器
  * urlPatterns = "/*"：拦截所有Controller地址，initParams:设置不需要过滤的地址，unCheckedUrls：不需要过滤的跳转方法，staticUrls：静态资源的后缀名
  */
-@Slf4j//如果不想每次都写private  final Logger logger = LoggerFactory.getLogger(当前类名.class); 可以用注解@Slf4j; 1.使用idea首先需要安装Lombok插件;
+/*@Slf4j//如果不想每次都写private  final Logger logger = LoggerFactory.getLogger(当前类名.class); 可以用注解@Slf4j; 1.使用idea首先需要安装Lombok插件;
 @WebFilter(filterName = "LoginFilter", urlPatterns = "/*", initParams = {@WebInitParam(name = "unCheckedUrls", value = "/login/*,/,/login/wisdom,/login/doLogin"),
-        @WebInitParam(name = "staticUrls", value = ".css,.js,.jpg,.png,.ico,.gif,.map,.ftl,.html,.jsp")})
+        @WebInitParam(name = "staticUrls", value = "/static/**,.css,.js,.jpg,.png,.ico,.gif,.map,.ftl,.html,.jsp")})
 public class LoginFilter implements Filter {
     private String unCheckedUrls;
     private String staticUrls;
@@ -33,7 +33,6 @@ public class LoginFilter implements Filter {
     //销毁方法
     @Override
     public void destroy() {
-        // TODO Auto-generated method stub
     }
 
     @Override
@@ -90,5 +89,5 @@ public class LoginFilter implements Filter {
             }
         }
     }
-}
+}*/
 

@@ -14,11 +14,15 @@ public interface ClassesDao extends BaseMapper<ClassesEntity> {
     Integer selectClassIDByClassName(@Param("cname") String cname, @Param("schooltime") String schooltime);
 
     //    查询所有班级信息
-    List<ClassesEntity> queryAllUsers();
+    List<ClassesEntity> queryAllClasses();
 
     //  根据课程ID查询班级信息
     List<ClassesEntity> queryClassByCourseId(List<Integer> course_id);
 
     //  根据班级ID查询课程ID
     Integer queryCourseIdByClassId(@Param("classId") Integer classId);
+
+    //  根据班级ID查看班级详情
+    ClassesEntity detailClassesByClassId(@Param("classId") Integer classId);
+
 }

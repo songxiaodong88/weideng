@@ -8,8 +8,8 @@
     </select>
 
     <!--查询所有班级信息-->
-    <select id="queryAllUsers" resultType="com.wisdom.entity.ClassesEntity">
-        select (@i:=@i+1) AS index_id, c1.class_id,c1.category,c1.cname,c1.schooltime from classes c1, (SELECT @i:=0) AS init  order by c1.category
+    <select id="queryAllClasses" resultType="com.wisdom.entity.ClassesEntity">
+        select c1.class_id,c1.category,c1.cname,c1.schooltime from classes c1 order by c1.category
     </select>
 
     <!--根据课程ID查询班级信息-->
@@ -28,4 +28,8 @@
         select c1.course_id from classes c1 where c1.class_id=#{classId}
     </select>
 
+    <!--根据班级ID查看班级详情-->
+    <select id="detailClassesByClassId" resultType="com.wisdom.entity.ClassesEntity">
+        select c1.class_id,c1.cname,c1.schooltime,c1.category,c1.course_id from classes c1 where c1.class_id=#{classId}
+    </select>
 </mapper>

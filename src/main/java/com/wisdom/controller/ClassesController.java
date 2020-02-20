@@ -31,15 +31,15 @@ public class ClassesController {
     //  查询所有班级信息
     @RequestMapping(value="queryAllClasses")
     public String queryAllClasses(Model model){
-        List<ClassesEntity> cList = classesService.queryAllUsers();
+        List<ClassesEntity> cList = classesService.queryAllClasses();
         model.addAttribute("classes", cList);
         return "infoManagement/classesList";
     }
 
     //  去添加班级信息页面
     @GetMapping(value="toAddClasses")
-    public String toAddClasses(Model model, Map<String,Object> params){
-        model.addAttribute("courseList", courseService.queryAll(params));
+    public String toAddClasses(Model model){
+        model.addAttribute("courseList", courseService.queryAllCourse());
         return "clazz/addClazz";
     }
 
@@ -57,9 +57,9 @@ public class ClassesController {
 
     //  去修改班级信息页面
     @RequestMapping(value = "toUpdateClasses")
-    public String toUpdateClasses(Integer classId,Model model,Map<String,Object>params) {
-        model.addAttribute("courseList", courseService.queryAll(params));
-        model.addAttribute("clazz", classesService.getById(classId));
+    public String toUpdateClasses(Integer classId,Model model) {
+        model.addAttribute("courseList", courseService.queryAllCourse());
+        model.addAttribute("clazz", classesService.detailClassesByClassId(classId));
         return "clazz/updateClazz";
     }
 

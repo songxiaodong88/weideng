@@ -3,11 +3,12 @@ package com.wisdom.controller;
 import com.wisdom.common.annotation.SysLog;
 import com.wisdom.entity.UsersEntity;
 import com.wisdom.service.UsersEntityService;
-import com.wisdom.uploadFile.ImageUtils;
 import com.wisdom.uploadFile.UploadFactory;
 import com.wisdom.utils.HttpContextUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.swing.*;
+import java.io.*;
+import java.net.URL;
 import java.util.List;
 
 /**
@@ -30,7 +34,7 @@ public class UsersEntityController {
     @Autowired
     private UsersEntityService usersEntityService;
 
-    private String picPrefix = "/static/";
+    private String picPrefix = "/";
 
     //  查询所有用户信息
     @RequestMapping(value="queryAllUsers")
@@ -44,6 +48,8 @@ public class UsersEntityController {
     @RequestMapping(value="detailUserById")
     @ResponseBody
     public UsersEntity detailUserById(Integer uid){
+        UsersEntity usersEntity = usersEntityService.detailUserById(uid);
+
         return usersEntityService.detailUserById(uid);
     }
 
@@ -59,7 +65,7 @@ public class UsersEntityController {
     @RequestMapping(value="doUpdateUser")
     public String doUpdateUser(UsersEntity usersEntity,@RequestParam(value = "pic",required = false)MultipartFile pic){
         String photo = "";
-        log.info("username====uod==="+usersEntity.getUsername());
+        log.info("username====updUser==="+usersEntity.getUsername());
         if (pic == null || pic.isEmpty()) {
             UsersEntity user = usersEntityService.detailUserById(usersEntity.getUid());
             log.info("userPic======"+user.getPhoto());
@@ -171,7 +177,9 @@ public class UsersEntityController {
             String fileName = file.getOriginalFilename();
             log.info("fileName=========="+fileName);
             String suffix = fileName.substring(file.getOriginalFilename().lastIndexOf("."));
+            log.info("suffix====" + suffix);
             url = UploadFactory.build().uploadSuffix(file.getBytes(), suffix);
+            log.info("url======="+url);
             url = url.substring(url.indexOf(UploadFactory.UPLOAD_ML),url.length());
 //            Thread.sleep(1500);
             log.info("url ========"+url);
@@ -182,5 +190,139 @@ public class UsersEntityController {
         }
         return url;
     }
+
+    private final ResourceLoader resourceLoader;
+
+    @Autowired
+    public UsersEntityController(ResourceLoader resourceLoader) {
+        this.resourceLoader = resourceLoader;
+    }
+
+    /**
+     * 显示单张图片
+     * @return
+     */
+//    @RequestMapping("show")
+//    public ResponseEntity showPhotos(String fileName) throws IOException {
+//        log.info("fileName======"+fileName);
+//        if (fileName!=null && !"".equals(fileName)) {
+//            if (fileName.trim().equals("/img/logo.jpg")) {
+//                File path3   = null;
+//                String filePath = null;
+//                String jarURL = null;
+//                JarFile jarFile = null;
+////                    path3 = new File(ResourceUtils.getURL("classpath:").getPath());
+////                    log.info("path3===="+path3.getPath());
+////                    filePath = path3.getParentFile().getParentFile()/*.getParent() */+ File.separator;
+////                    if(filePath.indexOf("file:") != -1){
+////                        filePath = filePath.substring(5,filePath.length());
+////                    }
+////                    log.info("filePath====="+filePath+"static");//F:\idea-workSpace\weideng\src\main\resources\static\img\logo.jpg
+//                    //查找指定资源的URL，其中res.txt仍然开始的bin目录下
+////                    URL fileURL = this.getClass().getResource("/UI/image/background.jpg");
+//                    URL fileURL=this.getClass().getResource("/static"+fileName);
+//                    log.info("fileURL======="+fileURL.getFile());
+//                    if (fileURL.getFile().indexOf("file:") != -1) {
+//                        log.info("===============================");
+////                        jarURL = fileURL.getFile().substring(5, fileURL.getFile().length());
+//
+//                        String jarPath = fileURL.toString().substring(0, fileURL.toString().indexOf("!/") + 2);
+//
+//                        JarURLConnection jarCon = null;
+//                        try {
+//                            URL jarURL1 = new URL(jarPath);
+//                            jarCon = (JarURLConnection) jarURL1.openConnection();
+//                            jarFile = jarCon.getJarFile();
+//                            jarURL = jarFile.getName();
+//                            log.info("jarFile====="+jarFile);
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }else{
+//                        jarURL = fileURL.getFile();
+//                    }
+//                    log.info("jarUrl=========="+jarURL);
+//
+//                BufferedReader in = new BufferedReader(
+//                        new InputStreamReader(this.getClass().getResourceAsStream("/static"+fileName)));
+//
+//                StringBuilder buffer = new StringBuilder();
+//                String line;
+//                while ((line = in.readLine()) != null)
+//                {
+//                    buffer.append(line);
+//                }
+//                log.info("buffer====="+buffer.toString());
+//                return ResponseEntity.ok(resourceLoader.getResource("file:"+buffer.toString()));
+//            }else{
+//                /*try {
+//                    String path = ResourceUtils.getURL("classpath:").getPath();
+//                    log.info("path===="+path);
+//                } catch (FileNotFoundException e) {
+//                    e.printStackTrace();
+//                }
+//                String path2 = getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
+//                log.info("path2===="+path2);
+//                String path1 = System.getProperty("java.class.path");
+//                log.info("path1====="+path1);*/
+//                //  获得jar包所在的目录
+//                String jarPath = System.getProperty("user.dir");
+//                log.info("jarPath====="+jarPath);
+//
+//                String picPath = null;
+//                if (jarPath.startsWith("F:")) {
+//                    picPath = "F:\\idea-workSpace";
+//                }else{
+//                    picPath = jarPath;
+//                }
+//
+//                try {
+//                    // 由于是读取本机的文件，file是一定要加上的， path是在application配置文件中的路径
+//                    return ResponseEntity.ok(resourceLoader.getResource("file:" + picPath + fileName));
+//                } catch (Exception e) {
+//                    return ResponseEntity.notFound().build();
+//                }
+//            }
+//        }else{
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
+
+    @RequestMapping("show")
+    @ResponseBody
+    public ResponseEntity showPhotos(String fileName) throws IOException {
+        if (fileName!=null && !"".equals(fileName)) {
+            log.info("fileName======" + fileName);
+            if (fileName.trim().equals("/img/logo.jpg")) {
+                URL url = this.getClass().getResource("/static" + fileName);
+                log.info("fileUrl=====" + url.getPath());
+                ImageIcon imageIcon = new ImageIcon(url);
+                return ResponseEntity.ok(resourceLoader.getResource(imageIcon.toString()));
+            } else {
+//                URL fileURL = this.getClass().getResource(fileName);
+//                log.info("fileUrl=====" + fileURL.getPath());
+                //  获得jar包所在的目录
+                String jarPath = System.getProperty("user.dir");
+                log.info("jarPath=====" + jarPath);
+
+                String picPath = null;
+                if (jarPath.startsWith("F:")) {
+                    picPath = "F:\\idea-workSpace";
+                } else {
+                    picPath = jarPath;
+                }
+                File file = new File(picPath + fileName);
+                if (file.exists()) {
+                    // 由于是读取本机的文件，file是一定要加上的， path是在application配置文件中的路径
+                    return ResponseEntity.ok(resourceLoader.getResource("file:" + picPath + fileName));
+                }else{
+                    return ResponseEntity.notFound().build();
+                }
+            }
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 
 }

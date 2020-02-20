@@ -1,7 +1,9 @@
 package com.wisdom.uploadFile;
 
+import com.wisdom.common.group.DiskGroup;
 import org.hibernate.validator.constraints.Range;
 
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**
@@ -113,10 +115,10 @@ public class CloudStorageConfig implements Serializable {
     /**
      * 服务器存储
      */
-//    @NotBlank(message = "本地存储路径不能为空", groups = DiskGroup.class)
-//    private String diskPath;
-//    @NotBlank(message = "本地存储代理服务器不能为空", groups = DiskGroup.class)
-//    private String proxyServer;
+    @NotBlank(message = "本地存储路径不能为空", groups = DiskGroup.class)
+    private String diskPath;
+    @NotBlank(message = "本地存储代理服务器不能为空", groups = DiskGroup.class)
+    private String proxyServer;
 
     public Integer getType() {
         return type;
@@ -270,19 +272,19 @@ public class CloudStorageConfig implements Serializable {
 //        this.qcloudRegion = qcloudRegion;
 //    }
 
-//    public String getDiskPath() {
-//        return diskPath;
-//    }
-//
-//    public void setDiskPath(String diskPath) {
-//        this.diskPath = diskPath;
-//    }
-//
-//    public String getProxyServer() {
-//        return proxyServer;
-//    }
-//
-//    public void setProxyServer(String proxyServer) {
-//        this.proxyServer = proxyServer;
-//    }
+    public String getDiskPath() {
+        return diskPath;
+    }
+
+    public void setDiskPath(String diskPath) {
+        this.diskPath = diskPath;
+    }
+
+    public String getProxyServer() {
+        return proxyServer;
+    }
+
+    public void setProxyServer(String proxyServer) {
+        this.proxyServer = proxyServer;
+    }
 }

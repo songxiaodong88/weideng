@@ -33,6 +33,11 @@ public class StudentServiceImpl extends ServiceImpl<StudentDao, StudentEntity> i
     }
 
     @Override
+    public List<StudentEntity> queryAllStudent(){
+        return baseMapper.queryAllStudent();
+    }
+
+    @Override
     public Page queryPage(Map<String, Object> params) {
         //排序
         params.put("sidx", "T.sid");

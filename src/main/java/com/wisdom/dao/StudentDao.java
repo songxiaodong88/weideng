@@ -29,6 +29,9 @@ public interface StudentDao extends BaseMapper<StudentEntity> {
      */
     List<StudentEntity> selectStudentPage(IPage page, @Param("params") Map<String, Object> params);
 
+    //  查询所有学生列表
+    List<StudentEntity> queryAllStudent();
+
     //    查询学生ID
     Integer selectStuIDBySname(@Param("sname") String sname);
 

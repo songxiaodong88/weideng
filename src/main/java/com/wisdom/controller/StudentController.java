@@ -47,16 +47,16 @@ public class StudentController {
 
     //  查询所有学生信息
     @RequestMapping(value="queryAllStudent")
-    public String queryAllStudent(Model model,@RequestParam Map<String,Object> params){
-        List<StudentEntity> stuList = studentService.queryAll(params);
+    public String queryAllStudent(Model model){
+        List<StudentEntity> stuList = studentService.queryAllStudent();
         model.addAttribute("stuList", stuList);
         return "infoManagement/studentList";
     }
 
     //  查询所有退学学生信息
     @RequestMapping(value="queryAllStudentByTuiXue")
-    public String queryAllStudentByTuiXue(Model model,@RequestParam Map<String,Object> params){
-        List<StudentEntity> stuList = studentService.queryAll(params);
+    public String queryAllStudentByTuiXue(Model model){
+        List<StudentEntity> stuList = studentService.queryAllStudent();
         model.addAttribute("stuTx", stuList);
         return "infoManagement/studentList";
     }

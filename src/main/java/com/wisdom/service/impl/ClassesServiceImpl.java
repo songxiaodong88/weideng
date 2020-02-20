@@ -22,8 +22,8 @@ public class ClassesServiceImpl extends ServiceImpl<ClassesDao, ClassesEntity> i
     }
 
     @Override
-    public List<ClassesEntity> queryAllUsers() {
-        return baseMapper.queryAllUsers();
+    public List<ClassesEntity> queryAllClasses() {
+        return baseMapper.queryAllClasses();
     }
 
     @Override
@@ -39,6 +39,11 @@ public class ClassesServiceImpl extends ServiceImpl<ClassesDao, ClassesEntity> i
     @Override
     public boolean update(ClassesEntity classesEntity) {
         return this.updateById(classesEntity);
+    }
+
+    @Override
+    public ClassesEntity detailClassesByClassId(Integer classId) {
+        return baseMapper.detailClassesByClassId(classId);
     }
 
 }

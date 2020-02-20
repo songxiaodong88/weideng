@@ -24,6 +24,9 @@ public interface StudentService extends IService<StudentEntity> {
      */
     List<StudentEntity> queryAll(Map<String, Object> params);
 
+    //  查询所有学生列表
+    List<StudentEntity> queryAllStudent();
+
     /**
      * 分页查询
      *

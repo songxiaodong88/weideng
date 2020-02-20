@@ -28,6 +28,11 @@
         <include refid="selectSql"/>
     </select>
 
+    <!--查询所有学生信息-->
+    <select id="queryAllStudent" resultType="com.wisdom.entity.StudentEntity">
+        select stu.sid,stu.sname,stu.phone,stu.nation,stu.remark,stu.status,stu.sex,stu.birthday from student stu where stu.status=1
+    </select>
+
     <!--根据学生姓名查询学生ID-->
     <select id="selectStuIDBySname" resultType="java.lang.Integer">
         select s1.sid from student s1 where s1.sname=#{sname}
