@@ -1,3 +1,4 @@
+/*
 package com.wisdom.excel;
 
 import java.io.FileInputStream;
@@ -34,10 +35,12 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.google.common.collect.Maps;
 
+*/
 /**
  * Excel操作工具类
  * @author ChaiXY
- */
+ *//*
+
 public class ExcelUtils {
 
     // @Value("${file_base_path}")
@@ -47,11 +50,13 @@ public class ExcelUtils {
     public static final String OFFICE_EXCEL_XLS = "xls";
     public static final String OFFICE_EXCEL_XLSX = "xlsx";
 
-    /**
+    */
+/**
      * 读取指定Sheet也的内容
      * @param filepath filepath 文件全路径
      * @param sheetNo sheet序号,从0开始,如果读取全文sheetNo设置null
-     */
+     *//*
+
     public static String readExcel(String filepath, Integer sheetNo)
             throws EncryptedDocumentException, InvalidFormatException, IOException {
         StringBuilder sb = new StringBuilder();
@@ -79,10 +84,12 @@ public class ExcelUtils {
         return sb.toString();
     }
 
-    /**
+    */
+/**
      * 根据文件路径获取Workbook对象
      * @param filepath 文件全路径
-     */
+     *//*
+
     public static Workbook getWorkbook(String filepath)
             throws EncryptedDocumentException, InvalidFormatException, IOException {
         InputStream is = null;
@@ -113,10 +120,12 @@ public class ExcelUtils {
         return wb;
     }
 
-    /**
+    */
+/**
      * 获取后缀
      * @param filepath filepath 文件全路径
-     */
+     *//*
+
     private static String getSuffiex(String filepath) {
         if (StringUtils.isBlank(filepath)) {
             return "";
@@ -155,11 +164,13 @@ public class ExcelUtils {
         return sb.toString();
     }
 
-    /**
+    */
+/**
      * 读取指定Sheet页的表头
      * @param filepath filepath 文件全路径
      * @param sheetNo sheet序号,从0开始,必填
-     */
+     *//*
+
     public static Row readTitle(String filepath, int sheetNo)
             throws IOException, EncryptedDocumentException, InvalidFormatException {
         Row returnRow = null;
@@ -171,9 +182,11 @@ public class ExcelUtils {
         return returnRow;
     }
 
-    /**
+    */
+/**
      * 读取指定Sheet页的表头
-     */
+     *//*
+
     public static Row readTitle(Sheet sheet) throws IOException {
         Row returnRow = null;
         int totalRow = sheet.getLastRowNum();// 得到excel的总记录条数
@@ -188,13 +201,15 @@ public class ExcelUtils {
         return returnRow;
     }
 
-    /**
+    */
+/**
      * 创建Excel文件
      * @param filepath filepath 文件全路径
      * @param sheetName 新Sheet页的名字
      * @param titles 表头
      * @param values 每行的单元格
-     */
+     *//*
+
     public static boolean writeExcel(String filepath, String sheetName, List<String> titles,
                                      List<Map<String, Object>> values) throws IOException {
         boolean success = false;
@@ -295,9 +310,11 @@ public class ExcelUtils {
         }
     }
 
-    /**
+    */
+/**
      * 设置格式
-     */
+     *//*
+
     private static Map<String, CellStyle> createStyles(Workbook wb) {
         Map<String, CellStyle> styles = Maps.newHashMap();
 
@@ -378,11 +395,13 @@ public class ExcelUtils {
         return styles;
     }
 
-    /**
+    */
+/**
      * 将源文件的内容复制到新Excel文件(可供理解Excel使用,使用价值不大)
      * @param srcFilepath 源文件全路径
      * @param desFilepath 目标文件全路径
-     */
+     *//*
+
     public static void writeExcel(String srcFilepath, String desFilepath)
             throws IOException, EncryptedDocumentException, InvalidFormatException {
         FileOutputStream outputStream = null;
@@ -444,3 +463,4 @@ public class ExcelUtils {
         readExcel("D:\\Desktop\\收费标准.xlsx", 0);
     }
 }
+*/
