@@ -6,6 +6,32 @@
             <destination>127.0.0.1:9601</destination>
             <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder"/>
         </appender>-->
+
+        <!--彩色日志定义-->
+        <property name="CONSOLE_LOG_PATTERN"
+                  value="%date{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5level) %([%thread])  %cyan(%logger) : %msg%n"/>
+        <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <charset>UTF-8</charset>
+                <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            </encoder>
+        </appender>
+
+        <appender name="error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <!--<File>${LOG_PATH}/error.log</File>-->
+            <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                <charset>UTF-8</charset>
+                <!--<pattern>${PATTERN}</pattern>-->
+            </encoder>
+            <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+                <level>ERROR</level>
+            </filter>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <!--<FileNamePattern>${LOG_PATH}/error.%d{yyyy-MM-dd}.log.zip</FileNamePattern>-->
+                <MaxHistory>30</MaxHistory>
+            </rollingPolicy>
+        </appender>
+
         <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
             <encoder charset="UTF-8"> <!-- encoder 可以指定字符集，对于中文输出有意义 -->
                 <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>
@@ -15,6 +41,8 @@
         <root level="INFO">
         <!--<root level="DEBUG">-->
             <appender-ref ref="STDOUT"/>
+            <appender-ref ref="console"/>
+            <appender-ref ref="error"/>
              <!--<appender-ref ref="LOGSTASH"/>-->
         </root>
     </springProfile>
