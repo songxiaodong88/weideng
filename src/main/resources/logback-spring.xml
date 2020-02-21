@@ -17,20 +17,20 @@
             </encoder>
         </appender>
 
-        <appender name="error" class="ch.qos.logback.core.rolling.RollingFileAppender">
-            <!--<File>${LOG_PATH}/error.log</File>-->
+       <!-- <appender name="error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            &lt;!&ndash;<File>${LOG_PATH}/error.log</File>&ndash;&gt;
             <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
                 <charset>UTF-8</charset>
-                <!--<pattern>${PATTERN}</pattern>-->
+                &lt;!&ndash;<pattern>${PATTERN}</pattern>&ndash;&gt;
             </encoder>
             <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
                 <level>ERROR</level>
             </filter>
             <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-                <!--<FileNamePattern>${LOG_PATH}/error.%d{yyyy-MM-dd}.log.zip</FileNamePattern>-->
+                &lt;!&ndash;<FileNamePattern>${LOG_PATH}/error.%d{yyyy-MM-dd}.log.zip</FileNamePattern>&ndash;&gt;
                 <MaxHistory>30</MaxHistory>
             </rollingPolicy>
-        </appender>
+        </appender>-->
 
         <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
             <encoder charset="UTF-8"> <!-- encoder 可以指定字符集，对于中文输出有意义 -->
@@ -42,7 +42,6 @@
         <!--<root level="DEBUG">-->
             <appender-ref ref="STDOUT"/>
             <appender-ref ref="console"/>
-            <appender-ref ref="error"/>
              <!--<appender-ref ref="LOGSTASH"/>-->
         </root>
     </springProfile>
